@@ -213,7 +213,7 @@ namespace JIYUWU.TXT
                     for (int i = 0; i < filePathArr.Length; i++)
                     {
                         FileInfo fi = new FileInfo(filePathArr[i]);
-                        fileCreateDate[filePathArr[i]] = fi.CreationTime;
+                        fileCreateDate[filePathArr[i]] = fi.LastWriteTime;
                     }
                     fileCreateDate = fileCreateDate.OrderBy(f => f.Value).ToDictionary(f => f.Key, f => f.Value);
                     FileInfo fileInfo = new FileInfo(fileCreateDate.Last().Key);
