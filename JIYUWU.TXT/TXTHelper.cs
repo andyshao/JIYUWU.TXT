@@ -26,7 +26,7 @@ namespace JIYUWU.TXT
             try
             {
                 LogLock.EnterReadLock();
-                StreamReader sr = new StreamReader(path, Encoding.Default);
+                StreamReader sr = new StreamReader(path, Encoding.UTF8);
                 StringBuilder sb = new StringBuilder();
                 string line;
                 while ((line = sr.ReadLine()) != null)
