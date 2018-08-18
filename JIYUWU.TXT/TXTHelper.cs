@@ -26,15 +26,18 @@ namespace JIYUWU.TXT
             try
             {
                 LogLock.EnterReadLock();
-                StreamReader sr = new StreamReader(path, Encoding.UTF8);
                 StringBuilder sb = new StringBuilder();
-                string line;
-                while ((line = sr.ReadLine()) != null)
+                using (FileStream fs = new FileStream(path, FileMode.Open))
                 {
-                    sb.AppendLine(line.ToString());
+                    using (StreamReader sr = new StreamReader(fs))
+                    {
+
+                        while (sr.Peek() >= 0)
+                        {
+                            sb.AppendLine(sr.ReadLine());
+                        }
+                    }
                 }
-                sr.Close();
-                sr.Dispose();
                 return sb.ToString();
             }
             catch (IOException e)
@@ -64,12 +67,12 @@ namespace JIYUWU.TXT
                 LogLock.EnterWriteLock();
                 FileStream fs = new FileStream(path, FileMode.Create);
                 //获得字节数组
-                byte[] data = System.Text.Encoding.Default.GetBytes(context);
+                byte[] data = System.Text.Encoding.UTF8.GetBytes(context);
                 //开始写入
                 fs.Write(data, 0, data.Length);
                 //清空缓冲区、关闭流
                 fs.Flush();
-                fs.Close();
+                fs.Dispose();
                 return b;
             }
             catch (Exception ex)
@@ -100,8 +103,8 @@ namespace JIYUWU.TXT
                 //清空缓冲区
                 sw.Flush();
                 //关闭流
-                sw.Close();
-                fs.Close();
+                sw.Dispose();
+                fs.Dispose();
                 return b;
             }
             catch (Exception ex)
@@ -134,8 +137,8 @@ namespace JIYUWU.TXT
                     fs.Seek(fl, SeekOrigin.End);
                     sw.WriteLine(context);
                     sw.Flush();
-                    sw.Close();
-                    fs.Close();
+                    sw.Dispose();
+                    fs.Dispose();
                     b = true;
                 }
                 else
@@ -146,8 +149,8 @@ namespace JIYUWU.TXT
                     fs.Seek(fl, SeekOrigin.Begin);
                     sw.WriteLine(context);
                     sw.Flush();
-                    sw.Close();
-                    fs.Close();
+                    sw.Dispose();
+                    fs.Dispose();
                     b = true;
                 }
                 return b;
@@ -168,7 +171,7 @@ namespace JIYUWU.TXT
         /// <summary>
         /// 默认输出地址
         /// </summary>
-        public static string logPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().CodeBase);//获取最初指定程序的位置
+        public static string logPath = System.IO.Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory());//获取最初指定程序的位置
         /// <summary>
         /// 日志输出 content：日志内容，fileSize：单个文件大小默认1M,fileCount：文件日志数量默认20个，filePath：文件输出位置默认bin目录
         /// </summary>
@@ -194,7 +197,7 @@ namespace JIYUWU.TXT
                     path += "\\";
                     path += DateTime.Now.ToString("yyyy-MM-dd") + ".txt";
                     FileStream fs = new FileStream(path, FileMode.Create);
-                    fs.Close();
+                    fs.Dispose();
                 }
                 else
                 {
@@ -207,7 +210,7 @@ namespace JIYUWU.TXT
                         string sourceFilePath = path;
                         path += DateTime.Now.ToString("yyyy-MM-dd") + ".txt";
                         FileStream fs = new FileStream(path, FileMode.Create);
-                        fs.Close();
+                        fs.Dispose();
                         filePathArr = Directory.GetFiles(sourceFilePath, "*.txt", SearchOption.TopDirectoryOnly);
                     }
                     for (int i = 0; i < filePathArr.Length; i++)
@@ -225,7 +228,7 @@ namespace JIYUWU.TXT
                     {
                         path += DateTime.Now.ToString("yyyy-MM-dd") + ".txt";
                         FileStream fs = new FileStream(path, FileMode.Create);
-                        fs.Close();
+                        fs.Dispose();
                     }
                     if (x > fileCount)
                     {
@@ -239,8 +242,8 @@ namespace JIYUWU.TXT
                 fs2.Seek(fl, SeekOrigin.Begin);
                 sw.WriteLine(DateTime.Now.ToString("hh:mm:ss") + "---> " + content);
                 sw.Flush();
-                sw.Close();
-                fs2.Close();
+                sw.Dispose();
+                fs2.Dispose();
             }
             catch (Exception ex)
             {
