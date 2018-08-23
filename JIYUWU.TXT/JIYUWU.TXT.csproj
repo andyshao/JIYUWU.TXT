@@ -4,12 +4,13 @@
     <TargetFramework>netstandard1.3</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>yincihang</Authors>
-    <Version>1.0.3</Version>
+    <Version>1.0.4</Version>
     <Copyright></Copyright>
     <Company>jiyuwu.com</Company>
     <PackageProjectUrl>https://www.aaoit.com</PackageProjectUrl>
-    <Description>该项目是简化TXT文本读写及日志输出，我还为该项目作了使用介绍https://blog.csdn.net/silverbutter/article/details/81260625，欢迎大家使用及提出宝贵的建议。</Description>
+    <Description>为了保证输出，将默认输出目录位置设置为C盘MyLog，将日志输出位置设置为第二个参数，方便使用者设置。目前该类库支持4.6及标准1.3以上框架。如何支持更多还在研究中。</Description>
     <NeutralLanguage></NeutralLanguage>
+    <PackageReleaseNotes />
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

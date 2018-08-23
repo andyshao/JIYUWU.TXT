@@ -171,15 +171,15 @@ namespace JIYUWU.TXT
         /// <summary>
         /// 默认输出地址
         /// </summary>
-        public static string logPath = System.IO.Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory());//获取最初指定程序的位置
+        public static string logPath = @"C:"; //System.IO.Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory());//获取最初指定程序的位置
         /// <summary>
-        /// 日志输出 content：日志内容，fileSize：单个文件大小默认1M,fileCount：文件日志数量默认20个，filePath：文件输出位置默认bin目录
+        /// 日志输出 content：日志内容，filePath：文件输出位置默认C盘MyLog，fileSize：单个文件大小默认1M,fileCount：文件日志数量默认20个
         /// </summary>
         /// <param name="content">日志内容</param>
+        /// <param name="filePath">文件输出位置默认C盘MyLog</param>
         /// <param name="fileSize">单个文件大小默认1M</param>
         /// <param name="fileCount">文件日志数量默认20个</param>
-        /// <param name="filePath">文件输出位置默认bin目录</param>
-        public static void WriteLog(string content, int fileSize = 1, int fileCount = 20, string filePath = "")
+        public static void WriteLog(string content, string filePath = "", int fileSize = 1, int fileCount = 20)
         {
             try
             {
