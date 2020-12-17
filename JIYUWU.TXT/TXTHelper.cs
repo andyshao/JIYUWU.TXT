@@ -8,7 +8,7 @@ using System.Threading;
 namespace JIYUWU.TXT
 {
     /// <summary>
-    /// txt操作类
+    /// txt操作类1
     /// </summary>
     public static class TXTHelper
     {
